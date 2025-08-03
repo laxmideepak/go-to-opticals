@@ -56,6 +56,7 @@ export default function Navigation() {
           { href: '/satisfaction', label: 'Satisfaction Survey', icon: MessageSquare },
           { href: '/notifications', label: 'Notifications', icon: Bell },
           { href: '/security', label: 'Security & Compliance', icon: ShieldCheck },
+          { href: '/penetration-testing', label: 'Penetration Testing', icon: ShieldCheck },
           { href: '/settings', label: 'Settings', icon: Settings },
         ];
       default:
