@@ -1,0 +1,142 @@
+**GoTo Optical — Patient-Attribution & Satisfaction Capture Web App**
+*Single-Page Product Requirements Document (PRD)*
+
+---
+
+### 1 . Purpose & Vision
+
+Extend **GoTo Optical's** marketing website with a lightweight, HIPAA-ready web app that:
+
+1. **Captures how every patient discovered the practice** (walk-in, Meta/Facebook ads, Instagram ads, WhatsApp Business ads, other).
+2. **Records their vision-insurance provider**—pre-filled from the 15+ plans already shown on the public site (e.g., VSP, EyeMed, Spectera, United Healthcare). ([GoTo Optical and Eye Care][1])
+3. **Collects a 1-click, 1–5-star satisfaction score for the attending doctor** (e.g., Dr. Bruce Goldstick, Dr. Joby). ([GoTo Optical and Eye Care][2])
+4. **Surfaces real-time dashboards** linking acquisition channel → insurance mix → doctor rating, so the owner can optimize ad spend and clinical quality.
+
+Outcome: raise booked eye-exam conversions, justify marketing ROI, and keep Google rating ≥ 4.9 ⭐️.
+
+---
+
+### 2 . Problem Statement
+
+Current booking widget records appointments but **doesn't tie visits back to ad channels, insurance, or doctor satisfaction**, forcing manual Excel work to answer simple questions like "Did July's Instagram campaign bring higher-value VSP patients?" or "Which doctor needs coaching?".
+
+---
+
+### 3 . Goals & Success Metrics
+
+| Goal                   | KPI                                | Target (90-day MVP)        |
+| ---------------------- | ---------------------------------- | -------------------------- |
+| **Channel visibility** | % visits with attribution captured | ≥ 85 %                     |
+| **Insurance insight**  | % visits with verified insurance   | ≥ 90 %                     |
+| **Feedback loop**      | Survey response rate within 24 h   | ≥ 60 %                     |
+| **Marketing ROI**      | CAC by channel                     | Baseline +10 % improvement |
+
+---
+
+### 4 . Personas
+
+| Persona                         | Motivation                                 | Pain Today                   |
+| ------------------------------- | ------------------------------------------ | ---------------------------- |
+| **Lia (Front Desk)**            | Speedy check-in, fewer phone calls         | Re-typing details into PMS   |
+| **Sam (Digital Marketer)**      | Prove ads drive exams, cut wasted spend    | No cross-channel attribution |
+| **Dr. Goldstick (Optometrist)** | Maintain stellar reputation                | Rarely sees patient feedback |
+| **Ana (Busy Mom Patient)**      | Finish forms fast, know insurance accepted | Unsure which plans qualify   |
+
+---
+
+### 5 . User Journey (Happy Path)
+
+1. **Arrival / Booking**
+
+   * Walk-in: Lia hands patient an iPad with intake link.
+   * Online ad click: UTM parameters auto-prefill "Meta-Ads → Dallas-Moms-Jul-2025".
+2. **Smart Intake Form** (≤ 30 s)
+
+   * "How did you hear about us?" (radio + hidden UTM fallback)
+   * Insurance provider dropdown (logos for VSP, EyeMed, … ) ([GoTo Optical and Eye Care][1])
+   * Basic demographics + consent checkbox
+3. **Visit completed** — doctor selected in EHR (Goldstick / Joby / Any).
+4. **Instant SMS or email** — 1-click 5-star prompt + free-text comment.
+5. **Admin Dashboard** — real-time funnel: Channel → Insurance → Doctor Rating.
+
+---
+
+### 6 . Functional Requirements
+
+| #  | Feature                              | Details                                                                            |
+| -- | ------------------------------------ | ---------------------------------------------------------------------------------- |
+| F1 | **Responsive Intake Form**           | English & Spanish, validates required fields; offline-cache PWA.                   |
+| F2 | **Attribution Auto-capture**         | Parse UTM/FBCLID; default to "Walk-in" if none.                                    |
+| F3 | **Insurance Selector**               | Pre-loaded list of accepted plans (VSP-EyeMed-Spectera-UHC-…); free-text override. |
+| F4 | **Doctor Satisfaction Survey**       | 1–5 ⭐️ + optional comment; triggered post-visit via SMS/email or kiosk.            |
+| F5 | **Real-Time Analytics**              | Channel mix, insurance mix, average rating per doctor; CSV & webhook export.       |
+| F6 | **Role-Based Access**                | Front-Desk (create), Marketing (read dashboards), Provider (view own scores).      |
+| F7 | **Scheduling Integration (Phase 2)** | Pass form data to existing ScheduleYourExam flow. ([GoTo Optical and Eye Care][3]) |
+
+---
+
+### 7 . Non-Functional Requirements
+
+| Category                  | Requirement                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| **Performance**           | p95 form submission processing < 300 ms                                       |
+| **Availability**          | 99.9 % uptime                                                                 |
+| **Scalability**           | 15 k submissions / day without degradation                                    |
+| **Security & Compliance** | HIPAA, SOC 2, GDPR; AES-256 at rest, TLS 1.3 in transit                       |
+| **Accessibility**         | WCAG 2.2 AA (color-blind safe, screen-reader labels)                          |
+| **Localization**          | EN / ES toggle (site already advertises ¡Se Habla Español!) ([CareCredit][4]) |
+
+---
+
+### 8 . Data Model (simplified)
+
+| Entity             | Key Fields                                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| **PatientSession** | session_id, timestamp, attribution_source, utm_source, insurance_id_fk, doctor_id_fk, satisfaction_score, comment |
+| **Insurance**      | insurance_id, name, logo_url                                                                                            |
+| **Doctor**         | doctor_id, name, specialty                                                                                               |
+| **AuditLog**       | action, user_id, ip_address, timestamp                                                                                  |
+
+---
+
+### 9 . Tech Stack (recommended)
+
+| Layer     | Choice                                  | Rationale                                         |
+| --------- | --------------------------------------- | ------------------------------------------------- |
+| Front End | **Next.js 14 + Tailwind**               | Consistent with existing GoTo Optical stack reuse |
+| Back End  | **FastAPI (Python) + PostgreSQL**       | Async, JSON-friendly, HIPAA-ready                 |
+| Auth      | **Auth0 HIPAA BAA**                     | SSO + granular roles                              |
+| Hosting   | **Azure App Service** or **Vercel Pro** | CI/CD; regional redundancy                        |
+| Analytics | **Supabase Realtime** or **Redash**     | Lightweight dashboarding                          |
+
+---
+
+### 10 . Milestones & Timeline (8-week MVP)
+
+| Week | Deliverable                                      |
+| ---- | ------------------------------------------------ |
+| 1    | Finalize requirements, low-fidelity wireframes   |
+| 2-3  | Build responsive intake form + attribution logic |
+| 4    | Insurance selector with logo assets              |
+| 5    | Doctor survey micro-service & SMS/email triggers |
+| 6    | Real-time dashboard & role-based auth            |
+| 7    | HIPAA security hardening, penetration test       |
+| 8    | Pilot at Pinnacle Park location; gather feedback |
+
+---
+
+### 11 . Risks & Mitigations
+
+| Risk                                | Impact               | Mitigation                                         |
+| ----------------------------------- | -------------------- | -------------------------------------------------- |
+| Low survey response                 | Poor doctor insights | Kiosk prompt before patient leaves; reminder SMS   |
+| Incorrect attribution (ad blockers) | ROI misreporting     | Fallback manual question + periodic data audits    |
+| HIPAA breach                        | Legal & financial    | Encryption, audit logging, yearly compliance audit |
+
+---
+
+### 12 . Future Enhancements
+
+* EHR (FHIR) integration to pre-populate doctor & service fields.
+* AI sentiment analysis on free-text comments.
+* Marketing campaign builder with ROAS optimization suggestions.
