@@ -13,7 +13,7 @@ import {
   FileText,
   Settings,
   Home,
-  Shield,
+  ShieldCheck,
   Bell
 } from 'lucide-react';
 
@@ -55,7 +55,7 @@ export default function Navigation() {
           { href: '/dashboard', label: 'Analytics Dashboard', icon: BarChart3 },
           { href: '/satisfaction', label: 'Satisfaction Survey', icon: MessageSquare },
           { href: '/notifications', label: 'Notifications', icon: Bell },
-          { href: '/security', label: 'Security & Compliance', icon: Shield },
+          { href: '/security', label: 'Security & Compliance', icon: ShieldCheck },
           { href: '/settings', label: 'Settings', icon: Settings },
         ];
       default:
