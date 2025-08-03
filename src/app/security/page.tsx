@@ -1,7 +1,7 @@
 import AuditLogViewer from '@/components/AuditLogViewer';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Navigation from '@/components/Navigation';
-import { Shield, Lock, Eye, AlertTriangle, CheckCircle } from 'lucide-react';
+import { ShieldCheck, Lock, Eye, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export default function SecurityPage() {
   return (
@@ -36,7 +36,7 @@ export default function SecurityPage() {
               <div className="bg-white rounded-xl shadow-lg p-6">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-blue-600" />
+                    <ShieldCheck className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-600">Security Headers</p>

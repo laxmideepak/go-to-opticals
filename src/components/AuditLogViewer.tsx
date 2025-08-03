@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { AuditLogger, type AuditLogEntry } from '@/lib/security';
-import { Shield, AlertTriangle, CheckCircle, Clock, User, Globe } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, CheckCircle, Clock, User, Globe } from 'lucide-react';
 
 export default function AuditLogViewer() {
   const [logs, setLogs] = useState<AuditLogEntry[]>([]);
@@ -55,7 +55,7 @@ export default function AuditLogViewer() {
     <div className="bg-white rounded-xl shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
-          <Shield className="w-6 h-6 text-blue-600" />
+          <ShieldCheck className="w-6 h-6 text-blue-600" />
           <h2 className="text-xl font-semibold text-gray-900">Security Audit Log</h2>
         </div>
         <div className="flex items-center space-x-4">
@@ -90,7 +90,7 @@ export default function AuditLogViewer() {
       <div className="space-y-3 max-h-96 overflow-y-auto">
         {filteredLogs.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            <Shield className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+            <ShieldCheck className="w-12 h-12 mx-auto mb-4 text-gray-300" />
             <p>No audit logs found</p>
           </div>
         ) : (

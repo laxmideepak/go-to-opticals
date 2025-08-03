@@ -9,7 +9,7 @@ import {
   Phone, 
   Calendar, 
   Eye, 
-  Shield, 
+  ShieldCheck, 
   CheckCircle,
   Globe,
   MessageSquare
@@ -452,7 +452,7 @@ export default function IntakeForm({
           {/* Consent */}
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-              <Shield className="h-5 w-5 mr-2" />
+                              <ShieldCheck className="h-5 w-5 mr-2" />
               {t('consent')}
             </h2>
             

@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { canAccessResource } from '@/types/auth';
 import LoginForm from './LoginForm';
-import { Shield, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, AlertTriangle } from 'lucide-react';
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -41,7 +41,7 @@ export default function ProtectedRoute({
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4">
         <div className="max-w-md w-full text-center">
           <div className="mx-auto h-12 w-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
-            <Shield className="h-6 w-6 text-red-600" />
+            <ShieldCheck className="h-6 w-6 text-red-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Access Denied
